@@ -52,20 +52,15 @@ class Huffman:
     # ENQUEUE (sorted insert)
     # ------------------------
     def enqueue(self, newNode):
-        # CASE 1: empty queue
-        if self.head is None:
-            self.head = newNode
-            return
-
-        # CASE 2: insert at front (smaller than current head)
-        if newNode.tree.freq < self.head.tree.freq:
+        # CASE 1: emptynode/ insert at front (smaller than current head)
+        if self.head is None or newNode.tree.freq < self.head.tree.freq:
             newNode.next = self.head
             self.head = newNode
             return
 
-        # CASE 3: insert in middle or end
+        # CASE 2: insert in middle or end
         p = self.head
-        while p.next is not None and p.next.tree.freq <= newNode.tree.freq:
+        while p.next and p.next.tree.freq <= newNode.tree.freq:
             p = p.next
         newNode.next = p.next
         p.next = newNode
@@ -141,3 +136,4 @@ if __name__ == "__main__":
     root = h.buildTree()        # construct Huffman tree
     h.buildCodes(root)          # generate codes for each character
     h.showCodes()               # display Huffman codes
+
